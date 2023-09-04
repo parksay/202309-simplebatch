@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: mysql
+
+
+---
+spring:
+  config:
+    active:
+      on-profile: local
+  datasource:
+    batch:
+      hikari:
+        jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_EXIT=FALSE
+        username: sa
+        password: password
+        driver-class-name: org.h2.Driver
+
+---
+spring:
+  config:
+    active:
+      on-profile: mysql
+  datasource:
+    batch:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3306/spring_batch_test
+        username: root
+        password: 0000
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+---

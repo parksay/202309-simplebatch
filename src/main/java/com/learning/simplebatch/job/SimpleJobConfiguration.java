@@ -12,7 +12,6 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -47,6 +46,7 @@ public class SimpleJobConfiguration {
         };
     }
 
+}
 
 //    // v4 까지는 아래처럼 썼었으나 코드만 봐서는 Builder 에서 JobRepository 가 생성되고 설정된다는 사실이 드러나지 않는다.
 //    // 따라서 JobRepository 를 명시적으로 파라미터에 넣어주는 방식으로 바꼈다.
@@ -74,4 +74,17 @@ public class SimpleJobConfiguration {
 //                .taskExecutor(taskExecutor())
 //                .build();
 //    }
-}
+//
+//
+// application.yml 파일 만들고 나서 아래 에러 나옴.
+// deprecated gradle features were used in this build making it into incompatible with gradle 9.0
+// IDE 의 build tool 을 바꿔주면 됨.
+// IntelliJ > settings > build, execution, deployment > build tools > gradle > build and run using/run test using > gradle 로 돼 있으면 IntelliJ 로 바꾸기.
+//
+// application.yml
+// 파일 안에 job.name 에다가 우리가 생성하는 job 의 이름을 넣어줌.
+// JobBuilder("myJob") 에 넣어주는 이름이랑 job: name: 에 넣어주는 이름이랑 맞춰주기.
+//spring:
+//  batch:
+//    job:
+//      name: ${job.name:simpleJob01}

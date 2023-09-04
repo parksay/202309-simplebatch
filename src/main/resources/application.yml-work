@@ -1,0 +1,38 @@
+spring:
+  batch:
+    job:
+      name: ${job.name:simpleJob01}
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - staging
+        - prod
+  datasource:
+    batch:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3306/batch
+        username: root
+        password: 0000
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        pool-name: 'read-and-write-pool'
+batch:
+  jdbc:
+    initialize--schema: never
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    batch:
+      hikari:
+        jdbc-url: jdbc:h2:mem:batch:MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+        username: sa
+        password: password
+        driver-class-name: org.h2.Driver
+        pool-name: 'read-and-write-pool'
